@@ -90,6 +90,7 @@ setinput(e.target.value);
   }
 
 const  onSubmit = () => {
+  if(input.endsWith(".jpg") || input.endsWith(".png")){
    setimageUrl(input);
     fetch('https://thawing-escarpment-40827.herokuapp.com/imageurl',{
           method: 'post',
@@ -124,6 +125,10 @@ const  onSubmit = () => {
     })
     .catch(err => console.log("erros is: ",err));
   }
+  else {
+    alert("Image link should end with .jpg or .png format");
+  }
+}
 
   return (
     <div className="App">
