@@ -15,7 +15,7 @@ const FaceDetection = (props) => {
   return (
     <div className='center'>
       <div className="absolute mt4">
-    <img id='inputimage' src={props.imageUrl} width="50%" height="auto" alt=""/>
+    <img id='inputimage' src={props.imageUrl} width="50vh" height="auto" alt=""/>
       { props.box.map((face,i) => {
         const tempface = calculatefacelocation(face.region_info.bounding_box);
         return (
