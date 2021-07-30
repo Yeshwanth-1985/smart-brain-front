@@ -51,7 +51,7 @@ const onSubmit = () => {
       body: JSON.stringify({
         username: regusername,
         email: regemail,
-        password: CryptoJS.AES.encrypt(regpassword, 'secret key 123').toString()
+        password: CryptoJS.AES.encrypt(regpassword, process.env.ACCESS_TOKEN_SECRET).toString()
         })
     })
   .then(response => response.json())

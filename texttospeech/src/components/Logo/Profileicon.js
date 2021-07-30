@@ -13,7 +13,7 @@ let history = useHistory();
 const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const onSignout = () => {
-    fetch('http://localhost:3000/signout',{
+    fetch('https://thawing-escarpment-40827.herokuapp.com/signout',{
           method: 'post',
           headers: {
             'Content-type': 'application/json',

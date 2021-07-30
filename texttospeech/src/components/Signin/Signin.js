@@ -42,7 +42,7 @@ const onSubmit = () => {
 
   if(signinemail && signinpassword  && signinemail.includes('@') && signinemail.includes('.com') && !signinemail.includes('<script>') && !signinpassword.includes('<script>'))
   {
-    var ciphertext = CryptoJS.AES.encrypt(signinpassword, 'secret key 123').toString();
+    var ciphertext = CryptoJS.AES.encrypt(signinpassword, process.env.ACCESS_TOKEN_SECRET).toString();
   fetch('https://thawing-escarpment-40827.herokuapp.com/signin',{
       method: 'post',
       headers: {'Content-type': 'application/json'},
