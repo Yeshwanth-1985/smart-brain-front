@@ -7,6 +7,7 @@ import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm.js';
 import Rank from './components/Rank/Rank.js';
 import Particles from 'react-particles-js';
 import FaceDetection from './components/FaceDetection/FaceDetection.js';
+import Modal from './components/Modal/Modal.js';
 
 const app = new Clarifai.App({
   apiKey: '8ec008b477174d33a1eb4fa65c5f5ff2',

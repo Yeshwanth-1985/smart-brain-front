@@ -11,9 +11,7 @@ import FaceDetection from './components/FaceDetection/FaceDetectionfinal.js';
 import Modal from './components/Modal/Modal.js';
 import Profile from './components/Profile/Profile.js';
 import Changepass from './components/Changepass/Changepass.js';
-import {  BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Auth from './components/Home/Auth.js';
-import Home from './components/Home/Home.js';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 const Particlesoptions = {
                     particles: {
@@ -38,6 +36,8 @@ const App = () => {
   const [input, setinput] = useState('');
   const [imageUrl, setimageUrl] = useState('');
   const [box, setbox]= useState([]);
+  const [route, setroute] = useState('signin');
+  const [isSignedin, setsignedin] = useState(false);
   const [isProfileOpen, setprofile] = useState(false);
 
   const [user, setuser] = useState({
@@ -71,6 +71,25 @@ const displayface = (facesbox) => {
   setbox(facesbox);
 }
 
+/*
+useEffect(() => {
+    fetch('https://thawing-escarpment-40827.herokuapp.com/')
+    .then(response => response.json())
+    .then(console.log)
+  });*/
+
+const onRouteChange = (rout) => {
+  setroute(rout);
+  if(rout === 'home' || rout === 'changepass')
+  {
+  setsignedin(true);    
+  setimageUrl('');
+  setinput('');
+  setbox([]);
+  }
+  else 
+  setsignedin(false);
+}
 
 const  onInputChange = (e) => {
 setinput(e.target.value);
@@ -83,7 +102,7 @@ const togglemodal = () => {
 const  onSubmit = () => {
   if((input.endsWith(".jpg") || input.endsWith(".png")) && !input.includes('<script>')) {
    setimageUrl(input);
-    fetch('https://thawing-escarpment-40827.herokuapp.com/imageurl',{
+    fetch('http://localhost:3000/imageurl',{
           method: 'post',
           headers: {
             'Content-type': 'application/json',
@@ -96,7 +115,7 @@ const  onSubmit = () => {
     .then(response => response.json())
     .then(response => {
       if(response){
-        fetch('https://thawing-escarpment-40827.herokuapp.com/image',{
+        fetch('http://localhost:3000/image',{
           method: 'put',
           headers: {
             'Content-type': 'application/json',
@@ -129,58 +148,26 @@ const  onSubmit = () => {
 
   return (
     <div className="App">
-    <Router>
-    <Switch>
-    <Route exact path="/">
-        <>
-      <Particles className='particles' params={Particlesoptions} />
-      <Navigation userid={user.id} togglemodal={togglemodal}/>
-      <Logo />
-       <Home />
-        </>
-    </Route>
-    <Route exact path="/home">
-        <>
-      <Auth user={user} loaduser={loaduser}/>
-      <Particles className='particles' params={Particlesoptions} />
-      <Navigation userid={user.id} togglemodal={togglemodal}/>
+    <Particles className='particles' params={Particlesoptions} />
+      <Navigation userid={user.id} onRouteChange={onRouteChange} isSignedin={isSignedin} togglemodal={togglemodal}/>
+      { isProfileOpen && 
+          <Modal>
+            <Profile isProfileOpen={isProfileOpen} loaduser={loaduser} togglemodal={togglemodal} user={user}/>
+          </Modal> 
+        }
+     { (route === 'home') ? 
+     <>
       <Logo />
       <Rank username={user.name} count={user.entries}/>
       <ImageLinkForm onSubmit={onSubmit} onInputChange={onInputChange}/>
       <FaceDetection box={box} width={width} height={height} imageUrl={imageUrl}/>
-      {isProfileOpen && <Modal>
-            <Profile isProfileOpen={isProfileOpen} loaduser={loaduser} togglemodal={togglemodal} user={user}/>
-        </Modal> }
-       </>
-    </Route>
-    <Route exact path="/changepass">
-        <>
-        <Auth user={user} loaduser={loaduser}/>
-      <Particles className='particles' params={Particlesoptions} />
-      <Navigation userid={user.id} togglemodal={togglemodal}/>
-       <Logo />
-       <Changepass loaduser={loaduser}/>
-       {isProfileOpen && <Modal>
-            <Profile isProfileOpen={isProfileOpen} loaduser={loaduser} togglemodal={togglemodal} user={user}/>
-        </Modal> }
-       </>
-    </Route>
-    <Route exact path="/signin">
-        <>
-      <Particles className='particles' params={Particlesoptions} />
-      <Navigation userid={user.id} togglemodal={togglemodal}/>
-       <Signin loaduser={loaduser} /> 
-       </>
-    </Route>
-    <Route exact path="/register">
-        <>
-      <Particles className='particles' params={Particlesoptions} />
-      <Navigation userid={user.id} togglemodal={togglemodal}/>
-       <Registration loaduser={loaduser} />
-       </>
-    </Route>
-    </Switch>
-    </Router>
+     </>
+      : (route === 'changepass') ?
+        <Changepass loaduser={loaduser} onRouteChange={onRouteChange}/>
+      :(route === 'signin') ? 
+       <Signin loaduser={loaduser} onRouteChange={onRouteChange} /> 
+       : <Registration loaduser={loaduser} onRouteChange={onRouteChange} />
+    }
     </div>
   );
 }

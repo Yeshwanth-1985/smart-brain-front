@@ -1,6 +1,34 @@
 import React, {useState} from 'react';
+import CryptoJS from 'crypto-js';
+import '../Signin/Signin.css';
+import {useHistory} from "react-router-dom";
 
 const Registration = (props) => {
+
+let history = useHistory();
+
+if(localStorage.getItem('token'))
+{
+  fetch("https://thawing-escarpment-40827.herokuapp.com/refresh",{
+      method: 'post',
+      headers: {
+        'Content-type': 'application/json',
+        'authorization': 'Bearer ' + localStorage.getItem('token')
+      },
+      body: JSON.stringify({})
+    })
+  .then(response => response.json())
+  .then(data => {
+    if(data.user){
+      props.loaduser(data.user);
+      history.push("/home");
+    }
+    else {
+      localStorage.removeItem("token");
+      history.push('/signin');
+    }
+    })
+}
 
 const onEmailChange = (event) => {
   setemail(event.target.value);
@@ -23,18 +51,19 @@ const onSubmit = () => {
       body: JSON.stringify({
         username: regusername,
         email: regemail,
-        password: regpassword
+        password: CryptoJS.AES.encrypt(regpassword, 'secret key 123').toString()
         })
     })
   .then(response => response.json())
-  .then(user => {
-    if(user.id){
-      props.loaduser(user);
-    props.onRouteChange('home');
+  .then(data => {
+    if(data.token){
+      localStorage.setItem('token', data.token);
+      props.loaduser(data.user);
+      history.push('/home');
     }
     else{
-     props.onRouteChange('register');
-     alert("Unable to register,try again"); 
+      alert("Unable to register,try again"); 
+      history.push('/register');
     }
   })
 }
@@ -57,7 +86,7 @@ const [regusername, setusername] = useState('');
       <div className="mt3">
         <label className="db fw6 lh-copy f5" htmlFor="name">Name</label>
         <input 
-        className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" 
+        className="hover-black pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" 
         type="text" 
         name="name"  
         id="name"
@@ -67,7 +96,7 @@ const [regusername, setusername] = useState('');
       <div className="mt3">
         <label className="db fw6 lh-copy f5" htmlFor="email-address">Email</label>
         <input 
-        className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" 
+        className="hover-black pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" 
         type="email" 
         name="email-address"  
         id="email-address" 
@@ -77,7 +106,7 @@ const [regusername, setusername] = useState('');
       <div className="mv3">
         <label className="db fw6 lh-copy f5" htmlFor="password">Password</label>
         <input 
-        className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" 
+        className="hover-black b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" 
         type="password" 
         name="password"  
         id="password"
