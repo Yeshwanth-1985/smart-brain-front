@@ -106,7 +106,7 @@ const [signinpassword, setpassword] = useState('');
       value="Sign in" />
     </div>
     <div className="lh-copy mt3">
-      <Link to="/register"><p className="pointer f4 link dim black underline db pa3">Register</p></Link>
+      <Link to={process.env.PUBLIC_URL + "/forgot"}><p className="pointer f4 link dim white underline db pa3">Forgot Password?</p></Link>
     </div>
   </div>
 </main>

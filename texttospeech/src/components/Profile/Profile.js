@@ -63,13 +63,13 @@ const updateprofile = () => {
         />
         <div className='mt4' style={{display: 'flex', justifyContent: 'space-evenly'}}>
         	<button 
-        	className='b pa2 grow pointer hover-white w-40 bg-light-blue b--black-20'
+        	className='btn btn-primary'
         	onClick={updateprofile}
         	>
         	Save
         	</button>
         	<button 
-        	className='b pa2 grow pointer hover-white w-40 bg-light-red b--black-20'
+        	className='btn btn-danger'
         	onClick={props.togglemodal}
         	>
         	Cancel

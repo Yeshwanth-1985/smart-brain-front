@@ -14,6 +14,7 @@ import Changepass from './components/Changepass/Changepass.js';
 import {  BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Auth from './components/Home/Auth.js';
 import Home from './components/Home/Home.js';
+import Forgot from './components/Forgot/Forgot.js';
 
 const Particlesoptions = {
                     particles: {
@@ -39,6 +40,11 @@ const App = () => {
   const [imageUrl, setimageUrl] = useState('');
   const [box, setbox]= useState([]);
   const [isProfileOpen, setprofile] = useState(false);
+  const [forgotuser,setforgotuser] = useState('');
+
+const setusermail = (value) => {
+  setforgotuser(value);
+}
 
   const [user, setuser] = useState({
     id: '',
@@ -179,6 +185,13 @@ const  onSubmit = () => {
       <Particles className='particles' params={Particlesoptions} />
       <Navigation userid={user.id} togglemodal={togglemodal}/>
        <Registration loaduser={loaduser} />
+       </>
+    </Route>
+    <Route exact path={process.env.PUBLIC_URL+"/forgot"}>
+        <>
+      <Particles className='particles' params={Particlesoptions} />
+      <Navigation userid={user.id} togglemodal={togglemodal}/>
+      <Forgot usermail={forgotuser} setusermail={setusermail}/>
        </>
     </Route>
     </Switch>
