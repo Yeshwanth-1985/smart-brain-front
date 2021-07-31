@@ -131,7 +131,7 @@ const  onSubmit = () => {
     <div className="App">
     <Router>
     <Switch>
-    <Route exact path="/">
+    <Route exact path={process.env.PUBLIC_URL+"/"}>
         <>
       <Particles className='particles' params={Particlesoptions} />
       <Navigation userid={user.id} togglemodal={togglemodal}/>
@@ -139,7 +139,7 @@ const  onSubmit = () => {
        <Home />
         </>
     </Route>
-    <Route exact path="/home">
+    <Route exact path={process.env.PUBLIC_URL+"/home"}>
         <>
       <Auth user={user} loaduser={loaduser}/>
       <Particles className='particles' params={Particlesoptions} />
@@ -153,7 +153,7 @@ const  onSubmit = () => {
         </Modal> }
        </>
     </Route>
-    <Route exact path="/changepass">
+    <Route exact path={process.env.PUBLIC_URL+"/changepass"}>
         <>
         <Auth user={user} loaduser={loaduser}/>
       <Particles className='particles' params={Particlesoptions} />
@@ -165,14 +165,14 @@ const  onSubmit = () => {
         </Modal> }
        </>
     </Route>
-    <Route exact path="/signin">
+    <Route exact path={process.env.PUBLIC_URL+"/signin"}>
         <>
       <Particles className='particles' params={Particlesoptions} />
       <Navigation userid={user.id} togglemodal={togglemodal}/>
        <Signin loaduser={loaduser} /> 
        </>
     </Route>
-    <Route exact path="/register">
+    <Route exact path={process.env.PUBLIC_URL+"/register"}>
         <>
       <Particles className='particles' params={Particlesoptions} />
       <Navigation userid={user.id} togglemodal={togglemodal}/>
