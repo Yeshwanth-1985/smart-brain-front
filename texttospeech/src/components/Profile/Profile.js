@@ -41,8 +41,8 @@ const updateprofile = () => {
 
 	return ( 
 		<div className='profile-modal'>
-		<article className="br4 ba b--white-10 mv4 w-100 w-50-m w-25-l mw10 center">
-    <main className="pa4 bg-white black-80 shadow-5 w-40">
+    <div className="card mywidth">
+  <div className="card-body">
     	<div className='modal-close'>
     	<img
 	      src={`https://robohash.org/${props.user.id}`}
@@ -75,8 +75,8 @@ const updateprofile = () => {
         	Cancel
         	</button>
         </div>
-</main>
-</article>
+        </div>
+</div>
 		</div>
 		);
 }

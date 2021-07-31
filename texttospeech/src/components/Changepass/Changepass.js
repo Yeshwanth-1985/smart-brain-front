@@ -37,10 +37,10 @@ const onSubmit = () => {
     if(data.success)
     {
     	alert("successfully changed password");
-    history.push("/home");
+    history.push(process.env.PUBLIC_URL+"/home");
     }
     else{
-     history.push("/home");
+     history.push(process.env.PUBLIC_URL+"/home");
      alert("Unable to update"); 
     }
   })
@@ -51,7 +51,7 @@ else {
 }
 
 const onHome = () => {
-	history.push("/home");
+	history.push(process.env.PUBLIC_URL+"/home");
 }
 
 const [curpassword, setcurpassword] = useState('');

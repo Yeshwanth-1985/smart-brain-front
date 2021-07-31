@@ -24,18 +24,18 @@ const [dropdownOpen, setDropdownOpen] = useState(false);
     .then(data => {
       if(data.signout) {
         localStorage.removeItem('token');
-         history.push("/");
+         history.push(process.env.PUBLIC_URL+"/");
       }
     })
     .catch(err => console.log(err))  
   }
 
   const onchangepass = () => {
-        history.push("/changepass");
+        history.push(process.env.PUBLIC_URL+"/changepass");
   }
  
  const onHome = () => {
-      history.push("/home");
+      history.push(process.env.PUBLIC_URL+"/home");
  }
 
  const onProfile = () => {

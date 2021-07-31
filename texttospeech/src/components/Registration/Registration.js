@@ -21,11 +21,11 @@ if(localStorage.getItem('token'))
   .then(data => {
     if(data.user){
       props.loaduser(data.user);
-      history.push("/home");
+      history.push(process.env.PUBLIC_URL+"/home");
     }
     else {
       localStorage.removeItem("token");
-      history.push('/signin');
+      history.push(process.env.PUBLIC_URL+'/signin');
     }
     })
 }
@@ -59,11 +59,11 @@ const onSubmit = () => {
     if(data.token){
       localStorage.setItem('token', data.token);
       props.loaduser(data.user);
-      history.push('/home');
+      history.push(process.env.PUBLIC_URL+'/home');
     }
     else{
       alert("Unable to register,try again"); 
-      history.push('/register');
+      history.push(process.env.PUBLIC_URL+'/register');
     }
   })
 }

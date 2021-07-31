@@ -18,11 +18,27 @@ const Navigation = (props) => {
   else {
     return (
       <>
-      <Nav style={{display: "flex", justifyContent: "flex-end"}}>
-     <NavItem><Link to="/"><p className="f3 link dim white underline pa3 pointer">Home</p></Link></NavItem>
-     <NavItem><Link to="/signin"><p className="f3 link dim white underline pa3 pointer">Login In</p></Link></NavItem>
-     <NavItem><Link to="/register"><p className="f3 link dim white underline pa3 pointer">Register</p></Link></NavItem>
-    </Nav>
+<nav className="navbar navbar-expand-lg navbar-dark">
+  <div className="container-fluid">
+  <Link className="navbar-brand" to={process.env.PUBLIC_URL + "/"}>Smart-Brain App</Link>
+    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span className="navbar-toggler-icon"></span>
+    </button>
+    <div className="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+        <li className="nav-item">
+          <Link className="nav-link f3 underline pa3 pointer" aria-current="page" to={process.env.PUBLIC_URL + "/"}>Home</Link>
+        </li>
+        <li className="nav-item">
+          <Link className="nav-link f3 underline pa3 pointer" to={process.env.PUBLIC_URL + "/signin"}>Signin</Link>
+        </li>
+        <li className="nav-item">
+          <Link className="nav-link f3 underline pa3 pointer" to={process.env.PUBLIC_URL + "/register"}>Regsiter</Link>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
     </>
       );
 

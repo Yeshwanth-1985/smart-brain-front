@@ -22,12 +22,12 @@ if(!props.user.name){
     }
     else {
     localStorage.removeItem("token");
-      history.push('/signin');
+      history.push(process.env.PUBLIC_URL+'/signin');
     }
     })
 	}
 	else {
-		 history.push('/signin');
+		 history.push(process.env.PUBLIC_URL+'/signin');
 	}
 }
 return (

@@ -21,11 +21,11 @@ if(localStorage.getItem('token'))
   .then(data => {
     if(data.user){
       props.loaduser(data.user);
-      history.push("/home");
+      history.push(process.env.PUBLIC_URL+"/home");
     }
     else {
       localStorage.removeItem("token");
-      history.push('/signin');
+      history.push(process.env.PUBLIC_URL+'/signin');
     }
     })
 }
@@ -56,11 +56,11 @@ const onSubmit = () => {
     if(data.user){
       localStorage.setItem('token', data.token);
       props.loaduser(data.user);
-      history.push("/home");
+      history.push(process.env.PUBLIC_URL+"/home");
     }
     else{
       alert("Unable to signin,try again");
-      history.push("/signin");
+      history.push(process.env.PUBLIC_URL+"/signin");
     }
   })
   }
