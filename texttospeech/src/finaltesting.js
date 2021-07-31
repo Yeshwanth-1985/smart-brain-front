@@ -133,6 +133,7 @@ const  onSubmit = () => {
     <Switch>
     <Route exact path={process.env.PUBLIC_URL+"/"}>
         <>
+         {console.log("came")}
       <Particles className='particles' params={Particlesoptions} />
       <Navigation userid={user.id} togglemodal={togglemodal}/>
       <Logo />
@@ -167,6 +168,7 @@ const  onSubmit = () => {
     </Route>
     <Route exact path={process.env.PUBLIC_URL+"/signin"}>
         <>
+        {console.log("hiiii",process.env.PUBLIC_URL)}
       <Particles className='particles' params={Particlesoptions} />
       <Navigation userid={user.id} togglemodal={togglemodal}/>
        <Signin loaduser={loaduser} /> 
